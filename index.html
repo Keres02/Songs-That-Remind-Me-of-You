@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Songs That Remind Me of You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #3b0a0a;
+      color: white;
+      overflow-x: hidden;
+    }
+    #intro {
+      text-align: center;
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 0, 110, 0.7);
+      margin: 5vh auto;
+      width: 90%;
+      max-width: 600px;
+    }
+    #intro h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    #intro button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      background-color: #ff3366;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+    }
+    #player {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+      margin: 5vh auto;
+      width: 90%;
+      max-width: 600px;
+    }
+    #player h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin: 0 0 1rem 0;
+      text-align: center;
+      color: #ffc0cb;
+    }
+    .cover {
+      width: 250px;
+      height: 250px;
+      border-radius: 20px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 10px #000;
+    }
+    .title {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    audio {
+      width: 100%;
+      max-width: 300px;
+    }
+    .controls button {
+      margin: 0 10px;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      background-color: #ff3366;
+      color: white;
+      cursor: pointer;
+    }
+    #photobook-section {
+      display: none;
+      margin: 5vh auto;
+      width: 90%;
+      max-width: 800px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(255, 0, 110, 0.5);
+    }
+    #photobook-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.0rem;
+      text-align: center;
+      color: #ffb6c1;
+      margin-bottom: 1rem;
+    }
+    .photo-book {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .photo-book img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border: 3px solid white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
+      transition: transform 0.3s;
+    }
+    .photo-book img:hover {
+      transform: scale(1.1);
+    }
+    .message-section {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .message-section button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background-color: #ff3366;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    .envelope {
+      display: none;
+      position: relative;
+      margin: 2rem auto 0;
+      width: 350px;
+      height: 250px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      color: #000;
+      font-family: 'Playfair Display', serif;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      animation: pop 0.5s ease-out forwards;
+    }
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .falling {
+      position: fixed;
+      top: -10px;
+      width: 20px;
+      height: 20px;
+      background-size: cover;
+      animation: fall linear infinite;
+      z-index: 0;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-20px); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="intro">
+    <h1>I made this for you, Amor mío!</h1>
+    <button onclick="showPlayer()">Play Now</button>
+  </div>  <div id="player">
+    <h2>Songs That Remind Me of You</h2>
+    <div class="cover" id="cover"></div>
+    <div class="title" id="title"></div>
+    <audio id="audio" controls></audio>
+    <div class="controls">
+      <button onclick="prevSong()">Previous</button>
+      <button onclick="nextSong()">Next</button>
+    </div>
+  </div>  <div id="photobook-section">
+    <h3>Our Memories Together</h3>
+    <div class="photo-book">
+      <img src="photos/photo1.jpg" alt="Photo 1">
+      <img src="photos/photo2.jpg" alt="Photo 2">
+      <img src="photos/photo3.jpg" alt="Photo 3">
+      <img src="photos/photo4.jpg" alt="Photo 4">
+    </div>
+    <div class="message-section">
+      <h3>You and Me Against the World (˶˃ ᵕ ˂˶)</h3>
+      <div class="photo-book">
+        <img src="photos/photo5.jpg" alt="Photo 5">
+        <img src="photos/photo6.jpg" alt="Photo 6">
+        <img src="photos/photo7.jpg" alt="Photo 7">
+        <img src="photos/photo8.jpg" alt="Photo 8">
+      </div>
+      <button onclick="revealMessage()">Click This</button>
+      <div class="envelope" id="envelope">
+  <p>I’m so lucky to have you, Amor mío. Every moment with you is a beautiful memory. Even if it's only virtual for now (˶˃ ᵕ ˂˶), I made this little project to remind you how special you are to me. I love you sooooo much, Amor mío!! ⸜(｡˃ ᵕ ˂ )⸝</p>
+  <p>I’d choose you in every version of my life. Distance means nothing when someone means everything. No matter where we are, you're always the one I come back to.</p>
+</div>
+    </div>
+  </div>  <script>
+    const songs = [
+      {
+        title: "I Think They Call This Love - Elliot James Reay",
+        src: "songs/elliot.mp3",
+        cover: "covers/elliot.jpg"
+      },
+      {
+        title: "Captivated - IV of Spades",
+        src: "songs/captivated.mp3",
+        cover: "covers/captivated.jpg"
+      },
+      {
+        title: "Ikaw Lang - Kiyo",
+        src: "songs/ikawlang.mp3",
+        cover: "covers/ikawlang.jpg"
+      },
+      {
+        title: "Munting Paraiso - Lo Ki",
+        src: "songs/munting-paraiso.mp3",
+        cover: "covers/munting-paraiso.jpg"
+      },
+      {
+        title: "Sweet - Cigarettes After Sex",
+        src: "songs/sweet.mp3",
+        cover: "covers/sweet.jpg"
+      }
+    ];
+
+    let currentSong = 0;
+    const audio = document.getElementById("audio");
+    const title = document.getElementById("title");
+    const cover = document.getElementById("cover");
+
+    function showPlayer() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("player").style.display = "flex";
+      document.getElementById("photobook-section").style.display = "block";
+      loadSong(currentSong);
+    }
+
+    function loadSong(index) {
+      const song = songs[index];
+      title.textContent = song.title;
+      audio.src = song.src;
+      cover.style.backgroundImage = `url('${song.cover}')`;
+    }
+
+    function nextSong() {
+      currentSong = (currentSong + 1) % songs.length;
+      loadSong(currentSong);
+      audio.play();
+    }
+
+    function prevSong() {
+      currentSong = (currentSong - 1 + songs.length) % songs.length;
+      loadSong(currentSong);
+      audio.play();
+    }
+
+    function revealMessage() {
+      document.getElementById("envelope").style.display = "block";
+    }
+
+    // Generate falling hearts and flowers
+    const emojis = [
+      "❤️", "🌸", "🌹", "🌺", "💕"
+    ];
+
+    for (let i = 0; i < 40; i++) {
+      const elem = document.createElement("div");
+      elem.classList.add("falling");
+      elem.style.left = Math.random() * 100 + "vw";
+      elem.style.animationDuration = 5 + Math.random() * 5 + "s";
+      elem.style.fontSize = 20 + Math.random() * 15 + "px";
+      elem.style.color = ["#ff69b4", "#ff3366", "#fff", "#d63384"][Math.floor(Math.random() * 4)];
+      elem.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      document.body.appendChild(elem);
+    }
+  </script></body>
+</html>
